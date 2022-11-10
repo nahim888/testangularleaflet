@@ -1,20 +1,31 @@
 from flask import Flask, jsonify, render_template
-import json
 from flask_cors import CORS, cross_origin
-
-import pandas as pd
-import pymssql
-conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='ahmed.nahim', password='xxx123##', database='ahmed.nahim')
 
 app = Flask(__name__)
 cors = CORS(app)
+
+import json
+app.config['JSON_SORT_KEYS'] = False
+
+import pandas as pd
+import numpy as np
+import math
+import pymssql
+conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='ahmed.nahim', password='xxx123##', database='ahmed.nahim')
+
 
 @app.route('/')
 def dati():
     query = 'SELECT * FROM Stadio'
     df = pd.read_sql(query,conn)
-    #json = df.to_json(orient = 'records')
-    #print(json)
-    return jsonify(list(df.to_dict('index').values()))
+    for i in range(0, len(df['AnnoApertura'])):
+        if df['AnnoApertura'][i] == np.NaN:
+            print('SAAS')
+        else:
+            df['AnnoApertura'][i] == 1
+    #return jsonify(list(df.to_dict('index').values()))
+    #return df[df['AnnoApertura'].isnull()].to_html()
+    return df.to_html()
 
-app.run()
+if __name__ == '__main__':
+  app.run(host='0.0.0.0', port=3245, debug=True)
