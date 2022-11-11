@@ -16,13 +16,8 @@ conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='ahmed.nahim', p
 
 @app.route('/')
 def dati():
-    query = 'SELECT * FROM Stadio'
+    query = "SELECT * FROM Stadio"
     df = pd.read_sql(query,conn)
-    for i in range(0, len(df['AnnoApertura'])):
-        if df['AnnoApertura'][i] == np.NaN:
-            print('SAAS')
-        else:
-            df['AnnoApertura'][i] == 1
     #return jsonify(list(df.to_dict('index').values()))
     #return df[df['AnnoApertura'].isnull()].to_html()
     return df.to_html()

@@ -30,7 +30,7 @@ export class AppComponent {
       },
       {
         position: { lat: 28.625182, lng: 79.81464 },
-        popup: {name: 'WalterTitzeVeroUltrasLaziale'}
+        popup: {name: 't'}
       }
     ];
     for (let index = 0; index < initialMarkers.length; index++) {
